@@ -6,3 +6,57 @@
 <a href="ClothingItems.html">Clothing Items</a>
 <a href="Orders.html">Orders</a>
 <a href="ClothingItems_Orders.html">ClothingItems_Orders</a>
+
+<div>
+    <p><strong>Browse Orders</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th colspan="2"><a href="#">Add new</a></th>
+            <th>order_id</th>
+            <th>order_date</th>
+            <th>total_cost</th>
+            <th>shopper_id</th>
+            <th>seller_id</th>
+        </tr>
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>1</td>
+            <td>2022-09-24</td>
+            <td>48.95</td>
+            <td>3</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>2</td>
+            <td>2022-10-03</td>
+            <td>72.34</td>
+            <td>1</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>3</td>
+            <td>2023-01-10</td>
+            <td>34.61</td>
+            <td>2</td>
+            <td>3</td>
+
+        </tr>
+    </table>
+    <p></p>
+</div>
+
+<div>
+    <form method="POST">
+        <legend><strong>search order</strong></legend>
+        <fieldset>
+            <label>order_date</label> <input type="text" name="order date">
+            <label>total_cost</label> <input type="text" name="total cost">
+        </fieldset>
+        <input type="submit" value="Search">
+    </form>
+</div>
