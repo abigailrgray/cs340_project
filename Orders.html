@@ -54,9 +54,32 @@
     <form method="POST">
         <legend><strong>search order</strong></legend>
         <fieldset>
-            <label>order_date</label> <input type="text" name="order date">
-            <label>total_cost</label> <input type="text" name="total cost">
+            <label>order date</label> <input type="text" name="order date">
+            <label>total cost</label> <input type="text" name="total cost">
         </fieldset>
         <input type="submit" value="Search">
+    </form>
+</div>
+
+<div>
+    <form method="POST">
+        <legend><strong>Add Order</strong></legend>
+        <fieldset>
+            <label>order date</label> <input type="text" name="order date">
+            <label>total cost</label> <input type="text" name="total cost">
+            <label>shopper</label> <select name="shopper">
+            	<option value="0">&nbsp;</option>
+                <option value="1">deanscott37</option>
+                <option value="2">barbara981</option>
+                <option value="3">santos763</option>
+                </select>
+            <label>seller</label> <select name="seller">
+                <option value="0">&nbsp;</option>
+                <option value="1">sarahsshop</option>
+                <option value="2">colescloset</option>
+                <option value="3">vintage_boutique</option>
+                </select>
+        </fieldset>
+        <input type="submit" value="Add order">
     </form>
 </div>
