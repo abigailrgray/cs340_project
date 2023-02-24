@@ -53,8 +53,8 @@ CREATE OR REPLACE TABLE ClothingItems_Orders(
     order_id int NOT NULL,
     item_quantity int NOT NULL,
     sold_price int NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (item_id) REFERENCES ClothingItems(item_id)
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES ClothingItems(item_id) ON DELETE CASCADE
 );
 
 INSERT INTO Shoppers(
