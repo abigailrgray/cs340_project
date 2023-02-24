@@ -13,7 +13,7 @@ SELECT item_id, clothing_type, color, size, brand FROM ClothingItems;
 SELECT order_id, order_date, total_cost FROM Orders;
 
 -- Get all orders with their associated items
-SELECT order_id, item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item FROM
+SELECT order_id, item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item, CONCAT('date: ', order_date, ' total: $', total_cost) as order FROM
 FROM Orders
 INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id
 INNER JOIN ClothingItems ON ClothingItems.item_id = ClothingItems_Orders.item_id
