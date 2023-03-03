@@ -69,22 +69,28 @@ addRowToTable = (data) => {
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create a row and cells
     let row = document.createElement("TR");
     let orderIdCell = document.createElement("TD");
     let itemIdCell = document.createElement("TD");
+    let itemDescriptionCell = document.createElement("TD");
+    let orderDescriptionCell = document.createElement("TD");
     let itemQuantityCell = document.createElement("TD");
     let soldPriceCell = document.createElement("TD");
 
     // Fill the cells with correct data
     orderIdCell.innerText = newRow.order_id;
     itemIdCell.innerText = newRow.item_id;
+    itemDescriptionCell.innerText = newRow.item_description;
+    orderDescriptionCell.innerText = newRow.order_description;
     itemQuantityCell.innerText = newRow.item_quantity;
     soldPriceCell.innerText = newRow.sold_price;
 
     // Add the cells to the row 
     row.appendChild(orderIdCell);
     row.appendChild(itemIdCell);
+    row.appendChild(itemDescriptionCell);
+    row.appendChild(orderDescriptionCell);
     row.appendChild(itemQuantityCell);
     row.appendChild(soldPriceCell);
 
