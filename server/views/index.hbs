@@ -1,6 +1,7 @@
 <!-- index.hbs -->
-
+<h1>Thrifty Finds Order Details</h1>
 {{!-- READ functionality - Display table for ClothingItems_Orders --}}
+<h2>View the Order Details Table:</h2>
 <table id="order-details-table">
     {{!-- Header section --}}
     <thead>
@@ -15,7 +16,7 @@
             {{/each}}
         </tr>
     </thead>
-add-order-details-ajax
+
     {{!-- Body section --}}
     <tbody>
 
@@ -33,7 +34,7 @@ add-order-details-ajax
 </table>
 
 {{!-- Form to add a record to the table  --}}
-<h2>Adding Data with AJAX</h2>
+<h2>Add a New Order Details Entry:</h2>
 <p>To add new order details, please enter the order details below and click 'Submit'!</p>
 <form id="add-order-details-form-ajax">
     <label for="input-item-id">Item description: </label>
