@@ -1,0 +1,69 @@
+<!-- index.hbs -->
+
+{{!-- READ functionality - Display table for ClothingItems_Orders --}}
+<table>
+    <table id="order-details-table"></table>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{#each data}}
+        <tr>
+            <td>{{this.order_id}}</td>
+            <td>{{this.item_id}}</td>
+            <td>{{this.item_description}}</td>
+            <td>{{this.order_description}}</td>
+            <td>{{this.item_quantity}}</td>
+            <td>{{this.sold_price}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data with AJAX</h2>
+<p>To add new order details, please enter the order details below and click 'Submit'!</p>
+<form id="add-order-details-form-ajax">
+    <label for="input-item-id">Item description: </label>
+    <select name="input-item-id" id="input-item-id-ajax">
+        <option value="">&nbsp;</option>
+        {{#each item_descriptions}}
+        <option value="{{this.item_id}}">{{this.item_description}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-order-id">Order description: </label>
+    <select name="input-order-id" id="input-order-id-ajax">
+        <option value="">&nbsp;</option>
+        {{#each order_descriptions}}
+        <option value="{{this.order_id}}">{{this.order_description}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-item-quantity">Item quantity: </label>
+    <input type="number" name="input-item-quantity" id="input-item-quantity">
+
+    <label for="input-sold-price">Sold price: </label>
+    <input type="number" name="input-sold-price" id="input-sold-price">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_order_details.js"></script>
+
+{{!-- INSERT functionality - Insert a new association between an order and a clothing item --}}

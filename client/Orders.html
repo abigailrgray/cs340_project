@@ -1,0 +1,71 @@
+<!-- Orders Page -->
+<h1>Orders</h1>
+
+<a href="Shoppers.html">Shoppers</a>
+<a href="Sellers.html">Sellers</a>
+<a href="ClothingItems.html">Clothing Items</a>
+<a href="Orders.html">Orders</a>
+<a href="ClothingItems_Orders.html">Clothing Items Per Order</a>
+
+<div>
+    <p><strong>Browse Orders</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th><a href="#">Add new</a></th>
+            <th>order_id</th>
+            <th>order_date</th>
+            <th>total_cost</th>
+            <th>shopper_id</th>
+            <th>seller_id</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>1</td>
+            <td>2022-09-24</td>
+            <td>48.95</td>
+            <td>3</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td>2022-10-03</td>
+            <td>72.34</td>
+            <td>1</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td>2023-01-10</td>
+            <td>34.61</td>
+            <td>2</td>
+            <td>3</td>
+
+        </tr>
+    </table>
+    <p></p>
+</div>
+
+<div>
+    <form method="POST">
+        <legend><strong>Add Order</strong></legend>
+        <fieldset>
+            <label>order date</label> <input type="text" name="order date">
+            <label>total cost</label> <input type="text" name="total cost">
+            <label>shopper</label> <select name="shopper">
+            	<option value="0">&nbsp;</option>
+                <option value="1">deanscott37</option>
+                <option value="2">barbara981</option>
+                <option value="3">santos763</option>
+                </select>
+            <label>seller</label> <select name="seller">
+                <option value="0">&nbsp;</option>
+                <option value="1">sarahsshop</option>
+                <option value="2">colescloset</option>
+                <option value="3">vintage_boutique</option>
+                </select>
+        </fieldset>
+        <input type="submit" value="Add order">
+    </form>
+</div>

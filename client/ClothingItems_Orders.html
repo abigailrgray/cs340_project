@@ -1,0 +1,65 @@
+<!-- ClothingItems_Orders Page -->
+<h1>Clothing Items Per Order</h1>
+
+<a href="Shoppers.html">Shoppers</a>
+<a href="Sellers.html">Sellers</a>
+<a href="ClothingItems.html">Clothing Items</a>
+<a href="Orders.html">Orders</a>
+<a href="ClothingItems_Orders.html">Clothing Items Per Order</a>
+
+<div>
+    <p><strong>Browse Clothing Items Per Order</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th colspan="2"><a href="#">Add new</a></th>
+            <th>item_id</th>
+            <th>order_id</th>
+            <th>item_quantity</th>
+            <th>sold_price</th>
+        </tr>
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>1</td>
+            <td>3</td>
+            <td>2</td>
+            <td>8.99</td>
+        </tr>
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>1</td>
+            <td>2</td>
+            <td>1</td>
+            <td>8.99</td>
+        </tr>
+        <tr>
+            <td><a href="#">Edit</a></td>
+            <td><a href="#">Delete</a></td>
+            <td>3</td>
+            <td>3</td>
+            <td>1</td>
+            <td>13.00</td>
+        </tr>
+    </table>
+    <p></p>
+</div>
+
+<div>
+    <form method="POST">
+        <legend><strong>Add Clothing Item Per Order</strong></legend>
+        <fieldset>
+            <label>clothing item</label> <select name="shopper">
+            	<option value="0">&nbsp;</option>
+                <option value="1">red Adidas shirt</option>
+                <option value="2">blue Levi's pants</option>
+                <option value="3">green Gap jacket</option>
+                </select>
+            <label>order</label> <select name="shopper">
+                <option value="0">&nbsp;</option>
+                <option value="1">date: 2022-09-24 total: $48.95</option>
+                <option value="2">date: 2022-10-03 total: $72.34</option>
+                <option value="3">date: 2023-01-10 total: $34.61</option>
+                </select>
+            <label>item quantity</label> <input type="text" name="order date">
+            <label>sold price</label> <input type="text" name="total cost">

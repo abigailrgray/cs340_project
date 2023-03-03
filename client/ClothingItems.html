@@ -1,0 +1,91 @@
+<!-- ClothingItems Page -->
+<h1>Clothing Items</h1>
+
+<a href="Shoppers.html">Shoppers</a>
+<a href="Sellers.html">Sellers</a>
+<a href="ClothingItems.html">Clothing Items</a>
+<a href="Orders.html">Orders</a>
+<a href="ClothingItems_Orders.html">Clothing Items Per Order</a>
+
+<div>
+    <p><strong>Browse Clothing Items</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th><a href="#">Add new</a></th>
+            <th>item_id</th>
+            <th>clothing_type</th>
+            <th>color</th>
+            <th>size</th>
+            <th>brand</th>
+            <th>condition</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>is_availble</th>
+            <th>seller_id</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>1</td>
+            <td>shirt</td>
+            <td>red</td>
+            <td>small</td>
+            <td>Adidas</td>
+            <td>new</td>
+            <td>8.99</td>
+            <td>4</td>
+            <td>1</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>2</td>
+            <td>pants</td>
+            <td>blue</td>
+            <td>30</td>
+            <td>Levi&rsquo;s</td>
+            <td>good</td>
+            <td>12.99</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>3</td>
+            <td>jacket</td>
+            <td>green</td>
+            <td>large</td>
+            <td>Gap</td>
+            <td>fair</td>
+            <td>15.00</td>
+            <td>1</td>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    </table>
+    <p></p>
+</div>
+
+<div>
+    <form method="POST">
+        <legend><strong>Add Clothing Item</strong></legend>
+        <fieldset>
+            <label>type</label> <input type="text" name="type">
+            <label>color</label> <input type="text" name="color">
+            <label>size</label> <input type="text" name="size">
+            <label>brand</label> <input type="text" name="brand">
+            <label>condition</label> <input type="text" name="condition">
+            <label>price</label> <input type="text" name="price">
+            <label>quantity</label> <input type="text" name="quantity">
+            <label>seller</label> <select name="seller">
+                <option value="0">&nbsp;</option>
+                <option value="1">sarahsshop</option>
+                <option value="2">colescloset</option>
+                <option value="3">vintage_boutique</option>
+                </select>
+        </fieldset>
+        <input type="submit" value="Add Clothing Item">
+    </form>
+</div>
+
+
