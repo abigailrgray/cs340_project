@@ -1,9 +1,7 @@
 <!-- index.hbs -->
 
 {{!-- READ functionality - Display table for ClothingItems_Orders --}}
-<table>
-    <table id="order-details-table"></table>
-
+<table id="order-details-table">
     {{!-- Header section --}}
     <thead>
 
@@ -55,15 +53,13 @@
     </select>
 
     <label for="input-item-quantity">Item quantity: </label>
-    <input type="number" name="input-item-quantity" id="input-item-quantity">
+    <input type="number" name="input-item-quantity" id="input-item-quantity-ajax">
 
     <label for="input-sold-price">Sold price: </label>
-    <input type="number" name="input-sold-price" id="input-sold-price">
+    <input type="number" name="input-sold-price" id="input-sold-price-ajax">
 
     <input type="submit">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_order_details.js"></script>
-
-{{!-- INSERT functionality - Insert a new association between an order and a clothing item --}}
+<script type="text/javascript" src="./js/add_order_details.js"></script>
