@@ -73,24 +73,24 @@ addRowToTable = (data) => {
     let row = document.createElement("TR");
     let orderIdCell = document.createElement("TD");
     let itemIdCell = document.createElement("TD");
-    let itemDescriptionCell = document.createElement("TD");
-    let orderDescriptionCell = document.createElement("TD");
+    // let itemDescriptionCell = document.createElement("TD");
+    // let orderDescriptionCell = document.createElement("TD");
     let itemQuantityCell = document.createElement("TD");
     let soldPriceCell = document.createElement("TD");
 
     // Fill the cells with correct data
     orderIdCell.innerText = newRow.order_id;
     itemIdCell.innerText = newRow.item_id;
-    itemDescriptionCell.innerText = newRow.item_description;
-    orderDescriptionCell.innerText = newRow.order_description;
+    // itemDescriptionCell.innerText = newRow.item_description;
+    // orderDescriptionCell.innerText = newRow.order_description;
     itemQuantityCell.innerText = newRow.item_quantity;
     soldPriceCell.innerText = newRow.sold_price;
 
     // Add the cells to the row 
     row.appendChild(orderIdCell);
     row.appendChild(itemIdCell);
-    row.appendChild(itemDescriptionCell);
-    row.appendChild(orderDescriptionCell);
+    // row.appendChild(itemDescriptionCell);
+    // row.appendChild(orderDescriptionCell);
     row.appendChild(itemQuantityCell);
     row.appendChild(soldPriceCell);
 

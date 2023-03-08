@@ -26,7 +26,7 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 */
 app.get('/', function(req, res)
     {  
-        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item_description, CONCAT('date: ', order_date, ' total: $', total_cost) AS order_description, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
+        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
         
         let query2 = "SELECT item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item_description FROM ClothingItems;";
 
@@ -75,7 +75,7 @@ app.post('/add-order-details-ajax', function (req, res) {
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
             // query2 = "SELECT * FROM ClothingItems_Orders;";
-            query2 = "SELECT Orders.order_id, ClothingItems.item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item_description, CONCAT('date: ', order_date, ' total: $', total_cost) AS order_description, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
+            query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
             db.pool.query(query2, function (error, rows, fields) {
 
                 // If there was an error on the second query, send a 400
