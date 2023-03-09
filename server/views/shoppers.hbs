@@ -35,3 +35,31 @@
         {{/each}}
     </tbody>
 </table>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add a new shopper:</h2>
+<p>To add a new shopper, please enter the shopper's information below and click 'Submit'!</p>
+<form id="add-shopper-form-ajax">
+    <label for="input-username">Username: </label>
+    <input type="text" name="input-username" id="input-username-ajax">
+
+    <label for="input-password">Password: </label>
+    <input type="text" name="input-password" id="input-password-ajax">
+
+    <label for="input-fname">First name: </label>
+    <input type="text" name="input-fname" id="input-fname-ajax">
+
+    <label for="input-lname">Last name: </label>
+    <input type="text" name="input-lname" id="input-lname-ajax">
+
+    <label for="input-email">Email: </label>
+    <input type="text" name="input-email" id="input-email-ajax">
+
+    <label for="input-phone">Phone number: </label>
+    <input type="text" name="input-phone" id="input-phone-ajax">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script type="text/javascript" src="./js/add_shopper.js"></script>
