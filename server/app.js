@@ -24,7 +24,13 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 /*
     ROUTES
 */
+
 app.get('/', function(req, res)
+    {
+        res.render('index')
+    });
+
+app.get('/order_details', function(req, res)
     {  
         let query1 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
         
@@ -49,13 +55,25 @@ app.get('/', function(req, res)
                     // Save order descriptions
                     let order_descriptions = rows;
 
-                    return res.render('index', {data: order_details, item_descriptions: item_descriptions, order_descriptions: order_descriptions});
+                    return res.render('order_details', {data: order_details, item_descriptions: item_descriptions, order_descriptions: order_descriptions});
                 })
             })
         })                                                    
     });
 
-    
+app.get('/shoppers', function(req, res)
+    {
+        // shopper_id, username, password, first_name, last_name, email, phone_number
+        let query1 = "SELECT * FROM Shoppers;";
+
+        db.pool.query(query1, function(error, rows, fields){
+            
+            let shoppers = rows;
+            return res.render('shoppers', {data: shoppers});
+        })
+    });
+
+
 app.post('/add-order-details-ajax', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -93,6 +111,8 @@ app.post('/add-order-details-ajax', function (req, res) {
         }
     })
 });
+
+
 
 /*
     LISTENER

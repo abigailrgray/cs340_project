@@ -1,5 +1,8 @@
 -- Data manipulation queries
 
+-- Get all shoppers
+SELECT seller_id, username, password, first_name, last_name, email, phone_number FROM Shoppers;
+
 -- Get all sellers to populate the Seller dropdown
 SELECT seller_id, username FROM Sellers;
 
