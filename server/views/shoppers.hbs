@@ -22,6 +22,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -29,7 +30,7 @@
     <tbody>
 
         {{#each data}}
-        <tr>
+        <tr data-value="{{this.shopper_id}}">
             <td>{{this.shopper_id}}</td>
             <td>{{this.username}}</td>
             <td>{{this.password}}</td>
@@ -37,6 +38,7 @@
             <td>{{this.last_name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.phone_number}}</td>
+            <td><button onclick="deleteShopper({{this.shopper_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -69,3 +71,4 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script type="text/javascript" src="./js/add_shopper.js"></script>
+<script src="./js/delete_shopper.js"></script>
