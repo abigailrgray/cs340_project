@@ -30,6 +30,24 @@ app.get('/', function(req, res)
         res.render('index')
     });
 
+app.get('/sellers', function(req, res)
+    {
+        res.render('sellers');
+    }
+)
+
+app.get('/clothing_items', function(req, res)
+    {
+        res.render('clothing_items');
+    }
+)
+
+app.get('/orders', function(req, res)
+    {
+        res.render('orders');
+    }
+)
+
 app.get('/order_details', function(req, res)
     {  
         let query1 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
