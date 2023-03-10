@@ -1,4 +1,5 @@
 {{!-- Create table and form for insert functionality --}}
+<!DOCTYPE html>
 <nav>
     <a href="/">Home Page</a>
     <a href="shoppers">Shoppers</a>
@@ -7,5 +8,62 @@
     <a href="orders">Orders</a>
     <a href="order_details">Order Details</a>
 </nav>
-
 <h1>Thrifty Finds Sellers</h1>
+<h2>View the Sellers Table:</h2>
+<table id="sellers-table">
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{#each data}}
+        <tr data-value="{{this.seller_id}}">
+            <td>{{this.seller_id}}</td>
+            <td>{{this.username}}</td>
+            <td>{{this.password}}</td>
+            <td>{{this.shop_name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone_number}}</td>
+            <td><button onclick="deleteSeller({{this.seller_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Add a new sellers:</h2>
+<p>To add a new sellers, please enter the seller's information below and click 'Submit'!</p>
+<form id="add-sellers-form-ajax">
+    <label for="input-username">Username: </label>
+    <input type="text" name="input-username" id="input-username-ajax">
+
+    <label for="input-password">Password: </label>
+    <input type="text" name="input-password" id="input-password-ajax">
+
+    <label for="input-shopname">First name: </label>
+    <input type="text" name="input-shopname" id="input-shopname-ajax">
+
+    <label for="input-email">Email: </label>
+    <input type="text" name="input-email" id="input-email-ajax">
+
+    <label for="input-phone">Phone number: </label>
+    <input type="text" name="input-phone" id="input-phone-ajax">
+
+    <input type="submit">
+</form>
+
+
+<script type="text/javascript" src="./js/add_sellers.js"></script>
+<script src="./js/delete_sellers.js"></script>
