@@ -191,6 +191,68 @@ app.delete('/delete-shopper-ajax/', function(req,res,next){
               }
   })});
 
+ app.post('/add-sellers-ajax', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Shoppers (username, password, shop_name, email, phone_number) VALUES ('${data.username}', '${data.password}', '${data.shop_name}', '${data.email}', '${data.phone_number}');`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            // If there was no error, perform a SELECT * on ClothingItems_Orders
+            // query2 = "SELECT * FROM ClothingItems_Orders;";
+            query2 = "SELECT * FROM Sellers;"
+            db.pool.query(query2, function (error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.delete('/delete-sellers-ajax/', function(req,res,next){
+    console.log('app.js delete was reached')
+    let data = req.body;
+    let sellerID = parseInt(data.shopper_id);
+    let query1 = `DELETE FROM Sellers WHERE seller_id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(query1, [sellerID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              console.log('there was an error')
+              res.sendStatus(400);
+              }
+              
+              else
+              {
+                res.sendStatus(204);
+              }
+  })});
+
+
 /*
     LISTENER
 */
