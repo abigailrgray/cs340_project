@@ -9,3 +9,51 @@
 </nav>
 
 <h1>Thrifty Finds Orders</h1>
+
+<table id="orders-table">
+    <thead>
+        <tr>
+            <th>order_id</th>
+            <th>order_date</th>
+            <th>total_cost</th>
+            <th>shopper_id</th>
+            <th>seller_id</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each gr_data}}
+        <tr>
+            <td>{{this.order_id}}</td>
+            <td>{{this.order_date}}</td>
+            <td>{{this.total_cost}}</td>
+            <td>{{this.shopper_id}}</td>
+            <td>{{this.seller_id}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<p>Add a new order:</p>
+<form id="add-orders-form-ajax">
+    <label for="input-orderid">Order Id: </label>
+    <input type="text" name="input-orderid" id="input-orderid-ajax">
+
+    <label for="input-orderdate">Order Date: </label>
+    <input type="text" name="input-orderdate" id="input-orderdate-ajax">
+
+    <label for="input-totalcost">Total Cost: </label>
+    <input type="text" name="input-totalcost" id="input-totalcost-ajax">
+
+    <label for="input-shopperid">Shopper Id: </label>
+    <input type="text" name="input-shopperid" id="input-shopperid-ajax">
+
+    <label for="input-sellerid">Seller Id: </label>
+    <input type="text" name="input-sellerid" id="input-sellerid-ajax">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script type="text/javascript" src="./js/add_orders.js"></script>
+
