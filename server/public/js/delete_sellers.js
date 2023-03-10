@@ -1,7 +1,7 @@
-function deleteShopper(sellerID) {
+function deleteShopper(seller_id) {
   // Put our data we want to send in a javascript object
   let data = {
-      seller_id: sellerID
+      seller_id: seller_id
   };
   // Setup our AJAX request
   var xhttp = new XMLHttpRequest();
@@ -13,7 +13,7 @@ function deleteShopper(sellerID) {
       if (xhttp.readyState == 4 && xhttp.status == 204) {
 
           // Add the new data to the table
-          deleteRow(sellerID);
+          deleteRow(seller_id);
 
       }
       else if (xhttp.readyState == 4 && xhttp.status != 204) {
@@ -25,11 +25,11 @@ function deleteShopper(sellerID) {
 }
 
 
-function deleteRow(sellerID){
+function deleteRow(seller_id){
 
   let table = document.getElementById("seller-table");
   for (let i = 0, row; row = table.rows[i]; i++) {
-     if (table.rows[i].getAttribute("data-value") == sellerID) {
+     if (table.rows[i].getAttribute("data-value") == seller_id) {
           table.deleteRow(i);
           break;
      }
