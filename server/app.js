@@ -168,6 +168,46 @@ app.post('/add-shopper-ajax', function (req, res) {
     })
 });
 
+app.put('/put-shopper-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let username = parseInt(data.username);
+    let password = parseInt(data.password);
+    let first_name = parseInt(data.first_name);
+    let last_name = parseInt(data.last_name);
+    let email = parseInt(data.email);
+    let phone_number = parseInt(data.phone_number);
+    let shopper = parseInt(data.shopper);
+  
+    let query1 = `UPDATE Shoppers SET username = ?, password = ?, first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE Shoppers.shopper_id = ?`;
+    let query2 = `SELECT * FROM Shoppers WHERE shopper_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(query1, [username, password, first_name, last_name, email, phone_number, shopper], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                  // Run the second query
+                  db.pool.query(query2, [shopper], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
+
 app.delete('/delete-shopper-ajax/', function(req,res,next){
     console.log('app.js delete was reached')
     let data = req.body;
