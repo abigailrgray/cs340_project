@@ -232,12 +232,12 @@ app.delete('/delete-shopper-ajax/', function(req,res,next){
 app.delete('/delete-sellers-ajax/', function(req,res,next){
     console.log('app.js delete was reached')
     let data = req.body;
-    let sellerID = parseInt(data.shopper_id);
+    let seller_id = parseInt(data.shopper_id);
     let query1 = `DELETE FROM Sellers WHERE seller_id = ?`;
   
   
           // Run the 1st query
-          db.pool.query(query1, [sellerID], function(error, rows, fields){
+          db.pool.query(query1, [seller_id], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
