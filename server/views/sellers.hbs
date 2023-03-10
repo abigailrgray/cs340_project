@@ -17,12 +17,12 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
+            <th>seller_id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>shop_name</th>
+            <th>email</th>
+            <th>phone_number</th>
         </tr>
     </thead>
 
@@ -41,6 +41,7 @@
         </tr>
         {{/each}}
     </tbody>
+    <script src="./js/delete_sellers.js"></script>
 </table>
 
 <h2>Add a new sellers:</h2>
@@ -63,7 +64,7 @@
 
     <input type="submit">
 </form>
-
+<script src="./js/add_sellers.js"></script>
 
 <script type="text/javascript" src="./js/add_sellers.js"></script>
 <script src="./js/delete_sellers.js"></script>
