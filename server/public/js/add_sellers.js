@@ -1,10 +1,9 @@
 // Get data from the form input, send it in POST request to add it to db, and add row to UI table
 // Also need to add route handler for POST request in app.js
-
 let addSellersForm = document.getElementById("add-sellers-form-ajax");
 
 // Modify the objects we need
-addSellerForm.addEventListener("submit", function (e) {
+addSellersForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
@@ -12,14 +11,14 @@ addSellerForm.addEventListener("submit", function (e) {
     // Get form fields we need to get data from
     let inputUsername = document.getElementById("input-username-ajax");
     let inputPassword = document.getElementById("input-password-ajax");
-    let inputshopname = document.getElementById("input-shopname-ajax");
+    let inputShopname = document.getElementById("input-shopname-ajax");
     let inputEmail = document.getElementById("input-email-ajax");
     let inputPhoneNumber = document.getElementById("input-phone-ajax");
 
     // Get the values from the form fields
     let usernameValue = inputUsername.value;
     let passwordValue = inputPassword.value;
-    let shopnameValue = inputshopname.value;
+    let shopnameValue = inputShopname.value;
     let emailValue = inputEmail.value;
     let phoneNumberValue = inputPhoneNumber.value;
 
@@ -48,7 +47,7 @@ addSellerForm.addEventListener("submit", function (e) {
             // Clear the input fields for another transaction
             inputUsername.value = '';
             inputPassword.value = '';
-            inputshopname.value = '';
+            inputShopname.value = '';
             inputEmail.value = '';
             inputPhoneNumber.value = '';
         }
@@ -65,9 +64,10 @@ addSellerForm.addEventListener("submit", function (e) {
 // Creates a single row from an Object representing a single record from 
 // ClothingItems_Orders
 addRowToTable = (data) => {
+    console.log(data)
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("shoppers-table");
+    let currentTable = document.getElementById("sellers-table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
