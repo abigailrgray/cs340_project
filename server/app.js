@@ -53,14 +53,38 @@ app.get('/orders', function(req, res)
 {
     // shopper_id, username, password, first_name, last_name, email, phone_number
     let query1 = "SELECT * FROM Orders;";
-
-    db.pool.query(query1, function(error, rows, fields){
-        
+    let query2 = "SELECT seller_id FROM Sellers";
+    let query3 = "SELECT shopper_id FROM Shoppers";
+    db.pool.query(query1, function(error, rows, fields){ 
         let orders = rows;
-        return res.render('orders', {data: orders});
-    })
-});
+    
+        // Runs second query
+        db.pool.query(query2, function(error, rows, fields) {
+            if (error) {
+                console.log(error);
+                res.sendStatus(400);
+                return;
+            }
+            
+            // Save seller IDs
+            let seller_id = rows.map(row => row.seller_id);
 
+            // Runs third query
+            db.pool.query(query3, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                    return;
+                }
+
+                // Save shopper IDs
+                let shopper_id = rows.map(row => row.shopper_id);
+
+                res.render('orders', { data: orders, seller_id: seller_id, shopper_id: shopper_id });
+            })
+        })
+    })                                                    
+});
 
 app.get('/order_details', function(req, res)
     {  
