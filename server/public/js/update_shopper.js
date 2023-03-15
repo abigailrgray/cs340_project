@@ -95,7 +95,7 @@ function updateRow(data, shopperID){
             firstNameCell.innerHTML = parsedData[0].first_name;
             lastNameCell.innerHTML = parsedData[0].last_name;
             emailCell.innerHTML = parsedData[0].email;  
-            phoneNumberCell.innerHTML = parsedData[0].phone; 
+            phoneNumberCell.innerHTML = parsedData[0].phone_number; 
        }
     }
 }
