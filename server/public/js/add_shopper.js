@@ -87,7 +87,7 @@ addRowToTable = (data) => {
     let emailCell = document.createElement("TD");
     let phoneNumberCell = document.createElement("TD");
 
-    let deleteCell = document.createElement("TD")
+    let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
     shopperIdCell.innerText = newRow.shopper_id;
@@ -98,11 +98,12 @@ addRowToTable = (data) => {
     emailCell.innerText = newRow.email;
     phoneNumberCell.innerText = newRow.phone_number;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innnerHTML = "Delete";
-    deleteCell.onClick = function(){
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onClick = function(){
         deleteShopper(newRow.shopper_id);
-    }
+    };
+    deleteCell.append(deleteButton);
 
     // Add the cells to the row
     row.appendChild(shopperIdCell) ;
@@ -114,7 +115,7 @@ addRowToTable = (data) => {
     row.appendChild(phoneNumberCell);
     row.appendChild(deleteCell);
 
-    row.setAttribute('data-value', newRow.shopper_id)
+    row.setAttribute('data-value', newRow.shopper_id);
 
     // Add the row to the table
     currentTable.appendChild(row);
