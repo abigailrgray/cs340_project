@@ -25,122 +25,22 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
     ROUTES
 */
 
+//  Main route
 app.get('/', function(req, res)
     {
         res.render('index')
     });
 
-app.get('/sellers', function(req, res)
-{
-    // shopper_id, username, password, first_name, last_name, email, phone_number
-    let query1 = "SELECT * FROM Sellers;";
-
-    db.pool.query(query1, function(error, rows, fields){
-        
-        let sellers = rows;
-        return res.render('sellers', {data: sellers});
-    })
-});
-
-
-app.get('/clothing_items', function(req, res)
-    {
-        res.render('clothing_items');
-    }
-)
-
-app.get('/orders', function(req, res)
-{
-    // shopper_id, username, password, first_name, last_name, email, phone_number
-    let query1 = "SELECT * FROM Orders;";
-
-    db.pool.query(query1, function(error, rows, fields){
-        
-        let orders = rows;
-        return res.render('orders', {data: orders});
-    })
-});
-
-
-app.get('/order_details', function(req, res)
-    {  
-        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
-        
-        let query2 = "SELECT item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item_description FROM ClothingItems;";
-
-        let query3 = "SELECT order_id, CONCAT('date: ', order_date, ' total: $', total_cost) AS order_description FROM Orders;";
-
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
-            // Save all order details
-            let order_details = rows;
-
-            // Runs second query
-            db.pool.query(query2, (error, rows, fields) => {
-            
-                // Save item descriptions
-                let item_descriptions = rows;
-
-                // Run third query
-                db.pool.query(query3, (error, rows, fields) => {
-
-                    // Save order descriptions
-                    let order_descriptions = rows;
-
-                    return res.render('order_details', {data: order_details, item_descriptions: item_descriptions, order_descriptions: order_descriptions});
-                })
-            })
-        })                                                    
-    });
-
+// Shopper routes
 app.get('/shoppers', function(req, res)
-    {
-        // shopper_id, username, password, first_name, last_name, email, phone_number
-        let query1 = "SELECT * FROM Shoppers;";
+{
+    // shopper_id, username, password, first_name, last_name, email, phone_number
+    let query1 = "SELECT * FROM Shoppers;";
 
-        db.pool.query(query1, function(error, rows, fields){
-            
-            let shoppers = rows;
-            return res.render('shoppers', {data: shoppers});
-        })
-    });
-
-
-app.post('/add-order-details-ajax', function (req, res) {
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO ClothingItems_Orders (order_id, item_id, item_quantity, sold_price) VALUES('${data.order_id}', '${data.item_id}', '${data.item_quantity}', '${data.sold_price}');`;
-
-    db.pool.query(query1, function (error, rows, fields) {
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-        else {
-            // If there was no error, perform a SELECT * on ClothingItems_Orders
-            // query2 = "SELECT * FROM ClothingItems_Orders;";
-            query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
-            db.pool.query(query2, function (error, rows, fields) {
-
-                // If there was an error on the second query, send a 400
-                if (error) {
-
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                    console.log(error);
-                    res.sendStatus(400);
-                }
-                // If all went well, send the results of the query back.
-                else {
-                    res.send(rows);
-                }
-            })
-        }
+    db.pool.query(query1, function(error, rows, fields){
+        
+        let shoppers = rows;
+        return res.render('shoppers', {data: shoppers});
     })
 });
 
@@ -184,46 +84,43 @@ app.post('/add-shopper-ajax', function (req, res) {
 
 app.put('/put-shopper-ajax', function(req,res,next){
     let data = req.body;
+    // let username = parseInt(data.username);
+    // let password = parseInt(data.password);
+    // let first_name = parseInt(data.first_name);
+    // let last_name = parseInt(data.last_name);
+    // let email = parseInt(data.email);
+    // let phone_number = parseInt(data.phone_number);
+    // let shopper = parseInt(data.shopper);
   
-    let username = parseInt(data.username);
-    let password = parseInt(data.password);
-    let first_name = parseInt(data.first_name);
-    let last_name = parseInt(data.last_name);
-    let email = parseInt(data.email);
-    let phone_number = parseInt(data.phone_number);
-    let shopper = parseInt(data.shopper);
+    let query1 = `UPDATE Shoppers SET username = '${data.username}', password = '${data.password}', first_name = '${data.first_name}' , last_name = '${data.last_name}', email = '${data.email}', phone_number = '${data.phone_number}' WHERE shopper_id = '${data.full_name}';`
+    let query2 = `SELECT * FROM Shoppers WHERE shopper_id = '${data.full_name}';`
   
-    let query1 = `UPDATE Shoppers SET username = ?, password = ?, first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE Shoppers.shopper_id = ?`;
-    let query2 = `SELECT * FROM Shoppers WHERE shopper_id = ?`
-  
-          // Run the 1st query
-          db.pool.query(query1, [username, password, first_name, last_name, email, phone_number, shopper], function(error, rows, fields){
-              if (error) {
-  
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              res.sendStatus(400);
-              }
-  
-              // If there was no error, we run our second query and return that data so we can use it to update the people's
-              // table on the front-end
-              else
-              {
-                  // Run the second query
-                  db.pool.query(query2, [shopper], function(error, rows, fields) {
-  
-                      if (error) {
-                          console.log(error);
-                          res.sendStatus(400);
-                      } else {
-                          res.send(rows);
-                      }
-                  })
-              }
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    console.log("row sending " + rows);
+                    res.send(rows);
+                }
+            })
+        }
   })});
 
 app.delete('/delete-shopper-ajax/', function(req,res,next){
-    console.log('app.js delete was reached')
     let data = req.body;
     let shopperID = parseInt(data.shopper_id);
     let query1 = `DELETE FROM Shoppers WHERE shopper_id = ?`;
@@ -235,7 +132,6 @@ app.delete('/delete-shopper-ajax/', function(req,res,next){
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
               console.log(error);
-              console.log('there was an error')
               res.sendStatus(400);
               }
               
@@ -245,7 +141,20 @@ app.delete('/delete-shopper-ajax/', function(req,res,next){
               }
   })});
 
- app.post('/add-sellers-ajax', function (req, res) {
+// Seller routes
+app.get('/sellers', function(req, res)
+{
+    // shopper_id, username, password, first_name, last_name, email, phone_number
+    let query1 = "SELECT * FROM Sellers;";
+
+    db.pool.query(query1, function(error, rows, fields){
+        
+        let sellers = rows;
+        return res.render('sellers', {data: sellers});
+    })
+});
+
+app.post('/add-sellers-ajax', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
@@ -306,6 +215,26 @@ app.delete('/delete-sellers-ajax/', function(req,res,next){
               }
   })});
 
+// Clothing items routes
+app.get('/clothing_items', function(req, res)
+    {
+        res.render('clothing_items');
+    }
+)
+
+// Order routes
+app.get('/orders', function(req, res)
+{
+    // shopper_id, username, password, first_name, last_name, email, phone_number
+    let query1 = "SELECT * FROM Orders;";
+
+    db.pool.query(query1, function(error, rows, fields){
+        
+        let orders = rows;
+        return res.render('orders', {data: orders});
+    })
+});
+
 app.post('/add-orders-ajax', function (req, res) {
 
     // Capture the incoming data and parse it back to a JS object
@@ -345,6 +274,75 @@ app.post('/add-orders-ajax', function (req, res) {
     })
 });
 
+// Order details routes
+app.get('/order_details', function(req, res)
+    {  
+        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
+        
+        let query2 = "SELECT item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item_description FROM ClothingItems;";
+
+        let query3 = "SELECT order_id, CONCAT('date: ', order_date, ' total: $', total_cost) AS order_description FROM Orders;";
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            // Save all order details
+            let order_details = rows;
+
+            // Runs second query
+            db.pool.query(query2, (error, rows, fields) => {
+            
+                // Save item descriptions
+                let item_descriptions = rows;
+
+                // Run third query
+                db.pool.query(query3, (error, rows, fields) => {
+
+                    // Save order descriptions
+                    let order_descriptions = rows;
+
+                    return res.render('order_details', {data: order_details, item_descriptions: item_descriptions, order_descriptions: order_descriptions});
+                })
+            })
+        })                                                    
+    });
+
+app.post('/add-order-details-ajax', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO ClothingItems_Orders (order_id, item_id, item_quantity, sold_price) VALUES('${data.order_id}', '${data.item_id}', '${data.item_quantity}', '${data.sold_price}');`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            // If there was no error, perform a SELECT * on ClothingItems_Orders
+            // query2 = "SELECT * FROM ClothingItems_Orders;";
+            query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
+            db.pool.query(query2, function (error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 
 /*

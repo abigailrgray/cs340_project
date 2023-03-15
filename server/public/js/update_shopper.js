@@ -12,7 +12,7 @@ updateShopperForm.addEventListener("submit", function (e) {
     let inputUsername = document.getElementById("input-username-update");
     let inputPassword = document.getElementById("input-password-update");
     let inputFirstName = document.getElementById("input-fname-update");
-    let inputLasttName = document.getElementById("input-lname-update");
+    let inputLastName = document.getElementById("input-lname-update");
     let inputEmail = document.getElementById("input-email-update");
     let inputPhoneNumber = document.getElementById("input-phone-update");
 
@@ -44,7 +44,6 @@ updateShopperForm.addEventListener("submit", function (e) {
         email: emailValue,
         phone_number: phoneNumberValue
     }
-    
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-shopper-ajax", true);
@@ -72,7 +71,7 @@ updateShopperForm.addEventListener("submit", function (e) {
 function updateRow(data, shopperID){
     let parsedData = JSON.parse(data);
     
-    let table = document.getElementById("shopper-table");
+    let table = document.getElementById("shoppers-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows
@@ -91,12 +90,12 @@ function updateRow(data, shopperID){
             let phoneNumberCell = updateRowIndex.getElementsByTagName("td")[6];
 
             // Reassign homeworld to our value we updated to
-            usernameCell.innerHTML = parsedData[0].name; 
-            passwordCell.innerHTML = parsedData[1].name;
-            firstNameCell.innerHTML = parsedData[2].name;
-            lastNameCell.innerHTML = parsedData[3].name;
-            emailCell.innerHTML = parsedData[4].name;  
-            phoneNumberCell.innerHTML = parsedData[5].name; 
+            usernameCell.innerHTML = parsedData[0].username; 
+            passwordCell.innerHTML = parsedData[0].password;
+            firstNameCell.innerHTML = parsedData[0].first_name;
+            lastNameCell.innerHTML = parsedData[0].last_name;
+            emailCell.innerHTML = parsedData[0].email;  
+            phoneNumberCell.innerHTML = parsedData[0].phone; 
        }
     }
 }
