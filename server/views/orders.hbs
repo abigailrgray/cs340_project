@@ -13,17 +13,16 @@
 <table id="orders-table">
     <thead>
         <tr>
-            <th>order_id</th>
-            <th>order_date</th>
-            <th>total_cost</th>
-            <th>shopper_id</th>
-            <th>seller_id</th>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Total Cost</th>
+            <th>Shopper ID</th>
+            <th>Seller ID</th>
         </tr>
     </thead>
 
     <tbody>
         {{#each data}}
-        {{#each order_data}}
         <tr>
             <td>{{this.order_id}}</td>
             <td>{{this.order_date}}</td>
@@ -36,21 +35,28 @@
 </table>
 
 <p>Add a new order:</p>
-<form id="add-orders-form-ajax">
-    <label for="input-orderid">Order Id: </label>
-    <input type="text" name="input-orderid" id="input-orderid-ajax">
+<form id="add-order-form-ajax">
+    <label for="input-order-date">Order Date: </label>
+    <input type="date" name="input-order-date" id="input-order-date-ajax">
 
-    <label for="input-orderdate">Order Date: </label>
-    <input type="text" name="input-orderdate" id="input-orderdate-ajax">
+    <label for="input-total-cost">Total Cost: </label>
+    <input type="text" name="input-total-cost" id="input-total-cost-ajax">
 
-    <label for="input-totalcost">Total Cost: </label>
-    <input type="text" name="input-totalcost" id="input-totalcost-ajax">
+    <label for="input-shopper-id">Shopper: </label>
+    <select name="input-shopper-id" id="input-shopper-id-ajax">
+        <option value="">&nbsp;</option>
+        {{#each shoppers}}
+        <option value="{{this.shopper_id}}">ID: {{this.shopper_id}} | {{this.name}}</option>
+        {{/each}}
+    </select>
 
-    <label for="input-shopperid">Shopper Id: </label>
-    <input type="text" name="input-shopperid" id="input-shopperid-ajax">
-
-    <label for="input-sellerid">Seller Id: </label>
-    <input type="text" name="input-sellerid" id="input-sellerid-ajax">
+    <label for="input-seller-id">Seller: </label>
+    <select name="input-seller-id" id="input-seller-id-ajax">
+        <option value="">&nbsp;</option>
+        {{#each sellers}}
+        <option value="{{this.seller_id}}">ID: {{this.seller_id}} | {{this.shop_name}}</option>
+        {{/each}}
+    </select>
 
     <input type="submit">
 </form>

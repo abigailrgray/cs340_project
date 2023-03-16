@@ -17,12 +17,12 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th>seller_id</th>
-            <th>username</th>
-            <th>password</th>
-            <th>shop_name</th>
-            <th>email</th>
-            <th>phone_number</th>
+            <th>Seller ID</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Shop Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
         </tr>
     </thead>
 
@@ -37,7 +37,6 @@
             <td>{{this.shop_name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.phone_number}}</td>
-            <td><button onclick="deleteSeller({{this.seller_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -67,4 +66,3 @@
 
 
 <script type="text/javascript" src="./js/add_sellers.js"></script>
-<script src="./js/delete_sellers.js"></script>

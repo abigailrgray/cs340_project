@@ -192,30 +192,31 @@ app.post('/add-sellers-ajax', function (req, res) {
     })
 });
 
-app.delete('/delete-sellers-ajax/', function(req,res,next){
-    console.log('app.js delete was reached')
-    let data = req.body;
-    let seller_id = parseInt(data.shopper_id);
-    let query1 = `DELETE FROM Sellers WHERE seller_id = ?`;
+// app.delete('/delete-sellers-ajax/', function(req,res,next){
+//     console.log('app.js delete was reached')
+//     let data = req.body;
+//     let seller_id = parseInt(data.shopper_id);
+//     let query1 = `DELETE FROM Sellers WHERE seller_id = ?`;
   
   
-          // Run the 1st query
-          db.pool.query(query1, [seller_id], function(error, rows, fields){
-              if (error) {
+//           // Run the 1st query
+//           db.pool.query(query1, [seller_id], function(error, rows, fields){
+//               if (error) {
   
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              console.log('there was an error')
-              res.sendStatus(400);
-              }
+//               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+//               console.log(error);
+//               console.log('there was an error')
+//               res.sendStatus(400);
+//               }
               
-              else
-              {
-                res.sendStatus(204);
-              }
-  })});
+//               else
+//               {
+//                 res.sendStatus(204);
+//               }
+//   })});
 
 // Clothing items routes
+
 app.get('/clothing_items', function(req, res)
     {
         res.render('clothing_items');
@@ -225,23 +226,31 @@ app.get('/clothing_items', function(req, res)
 // Order routes
 app.get('/orders', function(req, res)
 {
-    // shopper_id, username, password, first_name, last_name, email, phone_number
-    let query1 = "SELECT * FROM Orders;";
+    let order_query = "SELECT order_id, order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;";
+    let shopper_query = "SELECT shopper_id, CONCAT(first_name, ' ', last_name) as name FROM Shoppers;";
+    let seller_query = "SELECT * FROM Sellers;";
 
-    db.pool.query(query1, function(error, rows, fields){
-        
+    db.pool.query(order_query, function(error, rows, fields){
         let orders = rows;
-        return res.render('orders', {data: orders});
+
+        db.pool.query(shopper_query, function(error, rows, fields){
+            let shoppers = rows;
+
+            db.pool.query(seller_query, function(error, rows, fields){
+                let sellers = rows;
+                return res.render('orders', {data: orders, shoppers: shoppers, sellers: sellers});
+            })
+        })
     })
 });
 
-app.post('/add-orders-ajax', function (req, res) {
+app.post('/add-order-ajax', function (req, res) {
 
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Orders (order_id, order_date, total_cost, shopper_id, seller_id) VALUES('${data.order_id}', '${data.order_date}', '${data.total_cost}', '${data.shopper_id}', '${data.seller_id}');`;
+    query1 = `INSERT INTO Orders (order_date, total_cost, shopper_id, seller_id) VALUES ('${data.order_date}', '${data.total_cost}', '${data.shopper_id}', '${data.seller_id}');`;
 
     db.pool.query(query1, function (error, rows, fields) {
 
@@ -255,7 +264,7 @@ app.post('/add-orders-ajax', function (req, res) {
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
             // query2 = "SELECT * FROM ClothingItems_Orders;";
-            query2 = "SELECT * FROM Orders;"
+            query2 = "SELECT order_id, order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;"
             db.pool.query(query2, function (error, rows, fields) {
 
                 // If there was an error on the second query, send a 400

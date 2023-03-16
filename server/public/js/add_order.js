@@ -1,7 +1,7 @@
 // Get data from the form input, send it in POST request to add it to db, and add row to UI table
 // Also need to add route handler for POST request in app.js
 
-let addordersForm = document.getElementById("add-orders-form-ajax");
+let addordersForm = document.getElementById("add-order-form-ajax");
 
 addordersForm.addEventListener("submit", function (e) {
     
@@ -9,31 +9,28 @@ addordersForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputOrderid = document.getElementById("input-orderid-ajax");
-    let inputOrderdate = document.getElementById("input-orderdate-ajax");
-    let inputTotalcost = document.getElementById("input-totalcos-ajax");
-    let inputShopperid = document.getElementById("input-shopperid-ajax");
-    let inputSellerid = document.getElementById("input-sellerid-ajax");
+    let inputOrderDate = document.getElementById("input-order-date-ajax");
+    let inputTotalCost = document.getElementById("input-total-cost-ajax");
+    let inputShopperId = document.getElementById("input-shopper-id-ajax");
+    let inputSellerId = document.getElementById("input-seller-id-ajax");
 
     // Get the values from the form fields
-    let orderidValue = inputOrderid.value;
-    let orderdateValue = inputOrderdate.value;
-    let totalcosValue = inputTotalcost.value;
-    let shopperid = inputShopperid.value;
-    let sellerid = inputSellerid.value;
+    let orderDateValue = inputOrderDate.value;
+    let totalCostValue = inputTotalCost.value;
+    let shopperIdValue = inputShopperId.value;
+    let sellerIdValue = inputSellerId.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        order_id: orderidValue,
-        order_date: orderdateValue,
-        total_cost: totalcosValue,
-        shopper_id: shopperid,
-        seller_id: sellerid,
+        order_date: orderDateValue,
+        total_cost: totalCostValue,
+        shopper_id: shopperIdValue,
+        seller_id: sellerIdValue
     }
 
      // Setup our AJAX request
      var xhttp = new XMLHttpRequest();
-     xhttp.open("POST", "/add-orders-ajax", true);
+     xhttp.open("POST", "/add-order-ajax", true);
      xhttp.setRequestHeader("Content-type", "application/json");
 
     
@@ -45,11 +42,10 @@ addordersForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputOrderid.value = '';
-            inputOrderdate.value = '';
-            inputTotalcost.value = '';
-            inputShopperid.value = '';
-            inputSellerid.value = '';
+            inputOrderDate.value = '';
+            inputTotalCost.value = '';
+            inputShopperId.value = '';
+            inputSellerId.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -76,25 +72,25 @@ addRowToTable = (data) => {
 
     // Create a row and cells
     let row = document.createElement("TR");
-    let orderidCell = document.createElement("TD");
-    let orderdateCell = document.createElement("TD");
-    let totalcostCell = document.createElement("TD");
-    let shopperidCell = document.createElement("TD");
-    let selleridCell = document.createElement("TD");
+    let orderIdCell = document.createElement("TD");
+    let orderDateCell = document.createElement("TD");
+    let totalCostCell = document.createElement("TD");
+    let shopperIdCell = document.createElement("TD");
+    let sellerIdCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    orderidCell.innerText = newRow.order_id;
-    orderdateCell.innerText = newRow.order_date;
-    totalcostCell.innerText = newRow.total_cost;
-    shopperidCell.innerText = newRow.shopper_id;
-    selleridCell.innerText = newRow.seller_id;
+    orderIdCell.innerText = newRow.order_id;
+    orderDateCell.innerText = newRow.order_date;
+    totalCostCell.innerText = newRow.total_cost;
+    shopperIdCell.innerText = newRow.shopper_id;
+    sellerIdCell.innerText = newRow.seller_id;
 
     // Add the cells to the row
-    row.appendChild(orderidCell) ;
-    row.appendChild(orderdateCell);
-    row.appendChild(totalcostCell);
-    row.appendChild(shopperidCell);
-    row.appendChild(selleridCell);
+    row.appendChild(orderIdCell) ;
+    row.appendChild(orderDateCell);
+    row.appendChild(totalCostCell);
+    row.appendChild(shopperIdCell);
+    row.appendChild(sellerIdCell);
 
     // Add the row to the table
     currentTable.appendChild(row);
