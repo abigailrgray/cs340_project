@@ -95,6 +95,7 @@ VALUES
     '512-812-3848'
 
 );
+
 INSERT INTO Sellers(
     seller_id,
     username,
@@ -128,6 +129,7 @@ VALUES
     'vintagebotique@hotmail.com',
     '971-409-1011'
 );
+
 INSERT INTO ClothingItems(
     item_id,
     clothing_type,
@@ -177,6 +179,7 @@ VALUES
     1,
     2
 );
+
 INSERT INTO Orders(
     order_id,
     order_date,

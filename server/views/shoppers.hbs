@@ -75,9 +75,9 @@
 <p>To update a specific shopper, select their name from the drop-down menu and update their information.</p>
 <form id="update-shopper-form-ajax">
 
-    <label for="input-fullname">Full name: </label>
+    <label for="input-fullname">Shopper: </label>
     <select name="input-fullname" id="mySelect">
-        <option value="test">Select a Shopper</option>
+        <option value="">&nbsp;</option>
         {{#each data}}
         <option value="{{this.shopper_id}}">{{this.first_name}} {{this.last_name}}</option>
         {{/each}}
