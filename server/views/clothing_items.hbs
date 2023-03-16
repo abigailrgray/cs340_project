@@ -9,3 +9,74 @@
 </nav>
 
 <h1>Thrifty Finds Clothing Items</h1>
+
+<table id="clothing-items-table">
+    <thead>
+        <tr>
+            <th>Item ID</th>
+            <th>Clothing Type</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Brand</th>
+            <th>Item Condition</th>
+            <th>Current Price</th>
+            <th>Quantity</th>
+            <th>Is Available</th>
+            <th>Seller ID</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.item_id}}</td>
+            <td>{{this.clothing_type}}</td>
+            <td>{{this.color}}</td>
+            <td>{{this.size}}</td>
+            <td>{{this.brand}}</td>
+            <td>{{this.item_condition}}</td>
+            <td>{{this.current_price}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.is_available}}</td>
+            <td>{{this.seller_id}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<p>Add a clothing item (not functional yet):</p>
+<form id="add-clothing-item-form-ajax">
+    <label for="input-clothing-type">Clothing Type: </label>
+    <input type="text" name="input-clothing-type" id="input-clothing-type-ajax">
+
+    <label for="input-color">Color: </label>
+    <input type="text" name="input-color" id="input-color-ajax">
+
+    <label for="input-size">Size: </label>
+    <input type="text" name="input-size" id="input-size-ajax">
+
+    <label for="input-brand">Brand: </label>
+    <input type="text" name="input-brand" id="input-brand-ajax">
+
+    <label for="input-item-condition">Item Condition: </label>
+    <input type="text" name="input-item-condition" id="input-item-condition-ajax">
+
+    <label for="input-current-price">Current Price: </label>
+    <input type="number" name="input-current-price" id="input-current-price-ajax">
+
+    <label for="input-quantity">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity-ajax">
+
+    <label for="input-is-available">Is Available: </label>
+    <input type="text" name="input-is-available" id="input-is-available-ajax">
+
+    <label for="input-seller-id">Seller: </label>
+    <select name="input-seller-id" id="input-seller-id-ajax">
+        <option value="">&nbsp;</option>
+        {{#each sellers}}
+        <option value="{{this.seller_id}}">ID: {{this.seller_id}} | {{this.shop_name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
