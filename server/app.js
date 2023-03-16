@@ -209,6 +209,44 @@ app.get('/clothing_items', function(req, res)
     })
 });
 
+app.post('/add-clothing-item-ajax', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO ClothingItems (clothing_type, color, size, brand, item_condition, current_price, quantity, is_available, seller_id) VALUES ('${data.clothing_type}', '${data.color}', '${data.size}', '${data.brand}', '${data.item_condition}', '${data.current_price}', '${data.quantity}', '${data.is_available}', '${data.seller_id}');`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            // If there was no error, perform a SELECT * on ClothingItems_Orders
+            // query2 = "SELECT * FROM ClothingItems_Orders;";
+            query2 = "SELECT * FROM ClothingItems;"
+            db.pool.query(query2, function (error, rows, fields) {
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 // Order routes
 app.get('/orders', function(req, res)
 {
