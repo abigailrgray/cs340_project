@@ -120,7 +120,7 @@ app.put('/put-shopper-ajax', function(req,res,next){
         }
   })});
 
-app.delete('/delete-shopper-ajax/', function(req,res,next){
+app.delete('/delete-shopper-ajax', function(req,res,next){
     let data = req.body;
     let shopperID = parseInt(data.shopper_id);
     let query1 = `DELETE FROM Shoppers WHERE shopper_id = ?`;

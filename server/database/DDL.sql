@@ -44,8 +44,8 @@ CREATE OR REPLACE TABLE Orders(
     shopper_id int NOT NULL,
     seller_id int NOT NULL,
     PRIMARY KEY (order_id),
-    FOREIGN KEY (seller_id) REFERENCES Sellers(seller_id),
-    FOREIGN KEY (shopper_id) REFERENCES Shoppers(shopper_id)
+    FOREIGN KEY (seller_id) REFERENCES Sellers(seller_id) ON DELETE CASCADE,
+    FOREIGN KEY (shopper_id) REFERENCES Shoppers(shopper_id) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE ClothingItems_Orders(
