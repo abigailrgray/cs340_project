@@ -85,6 +85,7 @@ function updateRow(data, orderID, itemID){
             // Reassign homeworld to our value we updated to
             // orderIdCell.innerHTML = parsedData[0].order_id; 
             // itemIdCell.innerHTML = parsedData[0].item_id;
+            console.log(parsedData[0].item_quantity);
             itemQuantityCell.innerHTML = parsedData[0].item_quantity;
             soldPriceCell.innerHTML = parsedData[0].sold_price;
        }

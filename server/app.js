@@ -382,7 +382,8 @@ app.put('/put-order-details-ajax', function(req,res,next){
     let data = req.body;
   
     let query1 = `UPDATE ClothingItems_Orders SET item_quantity = '${data.item_quantity}', sold_price = '${data.sold_price}' WHERE order_id = '${data.order_id}' AND item_id = '${data.item_id}';`
-    let query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
+    let query2 = `SELECT * FROM ClothingItems_Orders WHERE order_id = '${data.order_id}' AND item_id = '${data.item_id}';`
+    //let query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
   
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
