@@ -309,8 +309,9 @@ app.post('/add-order-ajax', function (req, res) {
 
 // Order details routes
 app.get('/order_details', function(req, res)
-    {  
-        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
+    {   
+        //let query1 = "SELECT order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details FROM ClothingItems_Orders;";
+        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
         
         let query2 = "SELECT * FROM ClothingItems;";
 
@@ -325,15 +326,15 @@ app.get('/order_details', function(req, res)
             db.pool.query(query2, (error, rows, fields) => {
             
                 // Save item descriptions
-                let item_descriptions = rows;
+                let items = rows;
 
                 // Run third query
                 db.pool.query(query3, (error, rows, fields) => {
 
                     // Save order descriptions
-                    let order_descriptions = rows;
+                    let orders = rows;
 
-                    return res.render('order_details', {data: order_details, item_descriptions: item_descriptions, order_descriptions: order_descriptions});
+                    return res.render('order_details', {data: order_details, items: items, orders: orders});
                 })
             })
         })                                                    
@@ -357,7 +358,7 @@ app.post('/add-order-details-ajax', function (req, res) {
         }
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
-            // query2 = "SELECT * FROM ClothingItems_Orders;";
+            //query2 = "SELECT order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details FROM ClothingItems_Orders;";
             query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
             db.pool.query(query2, function (error, rows, fields) {
 
@@ -377,6 +378,35 @@ app.post('/add-order-details-ajax', function (req, res) {
     })
 });
 
+app.put('/put-order-details-ajax', function(req,res,next){
+    let data = req.body;
+  
+    let query1 = `UPDATE ClothingItems_Orders SET item_quantity = '${data.item_quantity}', sold_price = '${data.sold_price}' WHERE order_id = '${data.order_id}' AND item_id = '${data.item_id}';`
+    let query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
+  
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error, 'error query1');
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error, 'error query2');
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+  })});
 
 /*
     LISTENER

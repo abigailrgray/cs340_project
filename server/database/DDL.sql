@@ -49,12 +49,15 @@ CREATE OR REPLACE TABLE Orders(
 );
 
 CREATE OR REPLACE TABLE ClothingItems_Orders(
+    order_details_id int(11) AUTO_INCREMENT NOT NULL,
     item_id int NOT NULL,
     order_id int NOT NULL,
     item_quantity int NOT NULL,
     sold_price int NOT NULL,
+    PRIMARY KEY (order_details_id),
     FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
-    FOREIGN KEY (item_id) REFERENCES ClothingItems(item_id) ON DELETE CASCADE
+    FOREIGN KEY (item_id) REFERENCES ClothingItems(item_id) ON DELETE CASCADE,
+    UNIQUE KEY (item_id, order_id)
 );
 
 INSERT INTO Shoppers(

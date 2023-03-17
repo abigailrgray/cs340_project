@@ -73,16 +73,12 @@ addRowToTable = (data) => {
     let row = document.createElement("TR");
     let orderIdCell = document.createElement("TD");
     let itemIdCell = document.createElement("TD");
-    // let itemDescriptionCell = document.createElement("TD");
-    // let orderDescriptionCell = document.createElement("TD");
     let itemQuantityCell = document.createElement("TD");
     let soldPriceCell = document.createElement("TD");
 
     // Fill the cells with correct data
     orderIdCell.innerText = newRow.order_id;
     itemIdCell.innerText = newRow.item_id;
-    // itemDescriptionCell.innerText = newRow.item_description;
-    // orderDescriptionCell.innerText = newRow.order_description;
     itemQuantityCell.innerText = newRow.item_quantity;
     soldPriceCell.innerText = newRow.sold_price;
 
@@ -96,5 +92,11 @@ addRowToTable = (data) => {
 
     // Add the row to the table
     currentTable.appendChild(row);
+
+    let selectMenu = document.getElementById("mySelect");
+    let option = document.createElement("option");
+    option.text = 'Order ' + newRow.order_id + ' Item ' +  newRow.item_id;
+    option.value = newRow.id;
+    selectMenu.add(option);
 }
         

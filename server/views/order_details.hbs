@@ -30,7 +30,7 @@
     <tbody>
 
         {{#each data}}
-        <tr>
+        <tr order-value="{{this.order_id}}" item-value="{{this.item_id}}">
             <td>{{this.order_id}}</td>
             <td>{{this.item_id}}</td>
             <td>{{this.item_quantity}}</td>
@@ -44,19 +44,19 @@
 <h2>Add a New Order Details Entry:</h2>
 <p>To add new order details, please enter the order details below and click 'Submit'!</p>
 <form id="add-order-details-form-ajax">
-    <label for="input-item-id">Item ID: </label>
-    <select name="input-item-id" id="input-item-id-ajax">
-        <option value="">&nbsp;</option>
-        {{#each data}}
-        <option value="{{this.item_id}}">{{this.item_id}}</option>
-        {{/each}}
-    </select>
-    
     <label for="input-order-id">Order ID: </label>
     <select name="input-order-id" id="input-order-id-ajax">
         <option value="">&nbsp;</option>
-        {{#each data}}
+        {{#each orders}}
         <option value="{{this.order_id}}">{{this.order_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-item-id">Item ID: </label>
+    <select name="input-item-id" id="input-item-id-ajax">
+        <option value="">&nbsp;</option>
+        {{#each items}}
+        <option value="{{this.item_id}}">{{this.item_id}}</option>
         {{/each}}
     </select>
 
@@ -69,5 +69,27 @@
     <input type="submit">
 </form>
 
+<h2>Update an Order Details Entry:</h2>
+<p>To update an order details entry, select the entry from the drop-down menu.</p>
+<form id="update-order-details-form-ajax">
+    <label for="input-order-details">Order Details: </label>
+    <select name="input-order-details" id="mySelect">
+        <option value="">&nbsp;</option>
+        {{#each data}}
+        <option value="{{this.order_id}}#{{this.item_id}}">{{this.order_details}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-item-quantity">Item quantity: </label>
+    <input type="number" name="input-item-quantity" id="input-item-quantity-update">
+
+    <label for="input-sold-price">Sold price: </label>
+    <input type="number" name="input-sold-price" id="input-sold-price-update">
+
+    <input type="submit">
+
+</form>
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script type="text/javascript" src="./js/add_order_details.js"></script>
+<script src="./js/update_order_details.js"></script>
