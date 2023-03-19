@@ -311,7 +311,7 @@ app.post('/add-order-ajax', function (req, res) {
 app.get('/order_details', function(req, res)
     {   
         //let query1 = "SELECT order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details FROM ClothingItems_Orders;";
-        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id";
+        let query1 = "SELECT Orders.order_id, ClothingItems.item_id, order_details_id, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;";
         
         let query2 = "SELECT * FROM ClothingItems;";
 
@@ -359,7 +359,7 @@ app.post('/add-order-details-ajax', function (req, res) {
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
             //query2 = "SELECT order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details FROM ClothingItems_Orders;";
-            query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
+            query2 = "SELECT Orders.order_id, ClothingItems.item_id, order_details_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
             db.pool.query(query2, function (error, rows, fields) {
 
                 // If there was an error on the second query, send a 400
@@ -408,6 +408,28 @@ app.put('/put-order-details-ajax', function(req,res,next){
             })
         }
   })});
+
+app.delete('/delete-order-details-ajax', function(req,res,next){
+let data = req.body;
+let orderDetailsID = parseInt(data.order_details_id);
+console.log(orderDetailsID);
+let query1 = `DELETE FROM ClothingItems_Orders WHERE order_details_id = ?`;
+
+
+        // Run the 1st query
+        db.pool.query(query1, [orderDetailsID], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+            
+            else
+            {
+            res.sendStatus(204);
+            }
+})});
 
 /*
     LISTENER

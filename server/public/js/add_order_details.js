@@ -17,7 +17,6 @@ addOrderDetailsForm.addEventListener("submit", function (e) {
     let itemIdValue = inputItemId.value;
     let itemQuantityValue = inputItemQuantity.value;
     let soldPriceValue = inputSoldPrice.value;
-    console.log(orderIdValue);
 
     // Put our data we want to send in a javascript object
     let data = {
@@ -71,24 +70,39 @@ addRowToTable = (data) => {
 
     // Create a row and cells
     let row = document.createElement("TR");
+    let orderDetailsIDCell = document.createElement("TD");
     let orderIdCell = document.createElement("TD");
     let itemIdCell = document.createElement("TD");
     let itemQuantityCell = document.createElement("TD");
     let soldPriceCell = document.createElement("TD");
 
+    let deleteCell = document.createElement("TD");
+
     // Fill the cells with correct data
+    orderDetailsIDCell.innerText = newRow.order_details_id;
     orderIdCell.innerText = newRow.order_id;
     itemIdCell.innerText = newRow.item_id;
     itemQuantityCell.innerText = newRow.item_quantity;
     soldPriceCell.innerText = newRow.sold_price;
 
-    // Add the cells to the row 
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onClick = function(){
+        deleteOrderDetails(newRow.order_details_id);
+    };
+    deleteCell.append(deleteButton);
+
+    // Add the cells to the row
+    row.appendChild(orderDetailsIDCell);
     row.appendChild(orderIdCell);
     row.appendChild(itemIdCell);
-    // row.appendChild(itemDescriptionCell);
-    // row.appendChild(orderDescriptionCell);
     row.appendChild(itemQuantityCell);
     row.appendChild(soldPriceCell);
+    row.appendChild(deleteCell);
+
+    row.setAttribute('order-value', newRow.order_id);
+    row.setAttribute('item-value', newRow.item_id);
+
 
     // Add the row to the table
     currentTable.appendChild(row);

@@ -19,10 +19,12 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
+            <th>Order Details ID</th>
             <th>Order ID</th>
             <th>Item ID</th>
             <th>Item Quantity</th>
             <th>Sold Price</th>
+            <th>Delete</th>
         </tr>
     </thead>
 
@@ -31,10 +33,12 @@
 
         {{#each data}}
         <tr order-value="{{this.order_id}}" item-value="{{this.item_id}}">
+            <td>{{this.order_details_id}}</td>
             <td>{{this.order_id}}</td>
             <td>{{this.item_id}}</td>
             <td>{{this.item_quantity}}</td>
             <td>{{this.sold_price}}</td>
+            <td><button onclick="deleteOrderDetails({{this.order_details_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -92,4 +96,5 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script type="text/javascript" src="./js/add_order_details.js"></script>
+<script src="./js/delete_order_details.js"></script>
 <script src="./js/update_order_details.js"></script>
