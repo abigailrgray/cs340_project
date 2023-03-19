@@ -310,7 +310,7 @@ app.post('/add-order-ajax', function (req, res) {
 // Order details routes
 app.get('/order_details', function(req, res)
     {   
-        //let query1 = "SELECT order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details FROM ClothingItems_Orders;";
+        //let query1 = "SELECT order_details_id, order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', order_id, ' Item ', item_id) as order_details FROM ClothingItems_Orders;";
         let query1 = "SELECT Orders.order_id, ClothingItems.item_id, order_details_id, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;";
         
         let query2 = "SELECT * FROM ClothingItems;";
@@ -359,7 +359,8 @@ app.post('/add-order-details-ajax', function (req, res) {
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
             //query2 = "SELECT order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', Orders.order_id, ' Item ', ClothingItems.item_id) as order_details FROM ClothingItems_Orders;";
-            query2 = "SELECT Orders.order_id, ClothingItems.item_id, order_details_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
+            query2 = "SELECT Orders.order_id, ClothingItems.item_id, order_details_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;";
+            //query2 = "SELECT order_details_id, order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', order_id, ' Item ', item_id) as order_details FROM ClothingItems_Orders;";
             db.pool.query(query2, function (error, rows, fields) {
 
                 // If there was an error on the second query, send a 400
@@ -381,8 +382,8 @@ app.post('/add-order-details-ajax', function (req, res) {
 app.put('/put-order-details-ajax', function(req,res,next){
     let data = req.body;
   
-    let query1 = `UPDATE ClothingItems_Orders SET item_quantity = '${data.item_quantity}', sold_price = '${data.sold_price}' WHERE order_id = '${data.order_id}' AND item_id = '${data.item_id}';`
-    let query2 = `SELECT * FROM ClothingItems_Orders WHERE order_id = '${data.order_id}' AND item_id = '${data.item_id}';`
+    let query1 = `UPDATE ClothingItems_Orders SET item_quantity = '${data.item_quantity}', sold_price = '${data.sold_price}' WHERE order_details_id = '${data.order_details_id}';`
+    let query2 = `SELECT * FROM ClothingItems_Orders WHERE order_details_id = '${data.order_details_id}';`
     //let query2 = "SELECT Orders.order_id, ClothingItems.item_id, item_quantity, CONCAT('$', sold_price) as sold_price FROM Orders INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id;"
   
     // Run the 1st query

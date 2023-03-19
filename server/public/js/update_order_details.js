@@ -18,9 +18,9 @@ updateOrderDetailsForm.addEventListener("submit", function (e) {
     let soldPriceValue = inputSoldPrice.value;
 
     // Seperate Order ID and Item ID values from Order Details value
-    orderDetailsValue = orderDetailsValue.split('#');
-    let orderIdValue = orderDetailsValue[0]
-    let itemIdValue = orderDetailsValue[1];
+    // orderDetailsValue = orderDetailsValue.split('#');
+    // let orderIdValue = orderDetailsValue[0]
+    // let itemIdValue = orderDetailsValue[1];
     
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
@@ -33,8 +33,7 @@ updateOrderDetailsForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        order_id: orderIdValue,
-        item_id: itemIdValue,
+        order_details_id: orderDetailsValue,
         item_quantity: itemQuantityValue,
         sold_price: soldPriceValue
     }
@@ -49,7 +48,7 @@ updateOrderDetailsForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, orderIdValue, itemIdValue);
+            updateRow(xhttp.response, orderDetailsValue);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -63,7 +62,7 @@ updateOrderDetailsForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, orderID, itemID){
+function updateRow(data, orderDetailsID){
     let parsedData = JSON.parse(data);
     
     let table = document.getElementById("order-details-table");
@@ -71,7 +70,7 @@ function updateRow(data, orderID, itemID){
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows
        //rows would be accessed using the "row" variable assigned in the for loop
-       if ((table.rows[i].getAttribute("order-value") == orderID) && (table.rows[i].getAttribute("item-value") == itemID)) {
+       if (table.rows[i].getAttribute("data-value") == orderDetailsID) {
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
@@ -79,13 +78,12 @@ function updateRow(data, orderID, itemID){
             // Get tds
             // let orderIdCell = updateRowIndex.getElementsByTagName("td")[0];
             // let itemIdCell = updateRowIndex.getElementsByTagName("td")[1];
-            let itemQuantityCell = updateRowIndex.getElementsByTagName("td")[2];
-            let soldPriceCell = updateRowIndex.getElementsByTagName("td")[3];
+            let itemQuantityCell = updateRowIndex.getElementsByTagName("td")[3];
+            let soldPriceCell = updateRowIndex.getElementsByTagName("td")[4];
 
             // Reassign homeworld to our value we updated to
             // orderIdCell.innerHTML = parsedData[0].order_id; 
             // itemIdCell.innerHTML = parsedData[0].item_id;
-            console.log(parsedData[0].item_quantity);
             itemQuantityCell.innerHTML = parsedData[0].item_quantity;
             soldPriceCell.innerHTML = parsedData[0].sold_price;
        }

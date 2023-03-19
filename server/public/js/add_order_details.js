@@ -100,8 +100,7 @@ addRowToTable = (data) => {
     row.appendChild(soldPriceCell);
     row.appendChild(deleteCell);
 
-    row.setAttribute('order-value', newRow.order_id);
-    row.setAttribute('item-value', newRow.item_id);
+    row.setAttribute('data-value', newRow.order_details_id);
 
 
     // Add the row to the table

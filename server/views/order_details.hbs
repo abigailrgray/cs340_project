@@ -32,7 +32,7 @@
     <tbody>
 
         {{#each data}}
-        <tr order-value="{{this.order_id}}" item-value="{{this.item_id}}">
+        <tr data-value="{{this.order_details_id}}">
             <td>{{this.order_details_id}}</td>
             <td>{{this.order_id}}</td>
             <td>{{this.item_id}}</td>
@@ -80,7 +80,7 @@
     <select name="input-order-details" id="mySelect">
         <option value="">&nbsp;</option>
         {{#each data}}
-        <option value="{{this.order_id}}#{{this.item_id}}">{{this.order_details}}</option>
+        <option value="{{this.order_details_id}}">{{this.order_details}}</option>
         {{/each}}
     </select>
 
