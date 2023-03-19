@@ -1,4 +1,4 @@
-function deleteShopper(seller_id) {
+function deleteSeller(seller_id) {
   // Put our data we want to send in a javascript object
   let data = {
       seller_id: seller_id
