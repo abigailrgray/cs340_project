@@ -48,7 +48,7 @@
     <select name="input-shopper-id" id="input-shopper-id-ajax">
         <option value="">&nbsp;</option>
         {{#each shoppers}}
-        <option value="{{this.shopper_id}}">ID: {{this.shopper_id}} | {{this.name}}</option>
+        <option value="{{this.shopper_id}}">{{this.name}}</option>
         {{/each}}
     </select>
 
@@ -56,7 +56,7 @@
     <select name="input-seller-id" id="input-seller-id-ajax">
         <option value="">&nbsp;</option>
         {{#each sellers}}
-        <option value="{{this.seller_id}}">ID: {{this.seller_id}} | {{this.shop_name}}</option>
+        <option value="{{this.seller_id}}">{{this.shop_name}}</option>
         {{/each}}
     </select>
 
