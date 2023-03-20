@@ -250,7 +250,7 @@ app.post('/add-clothing-item-ajax', function (req, res) {
 // Order routes
 app.get('/orders', function(req, res)
 {
-    let order_query = "SELECT order_id, order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;";
+    let order_query = "SELECT order_id, DATE_FORMAT(order_date, '%m/%d/%Y') as order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;";
     let shopper_query = "SELECT shopper_id, CONCAT(first_name, ' ', last_name) as name FROM Shoppers;";
     let seller_query = "SELECT * FROM Sellers;";
 
@@ -288,7 +288,7 @@ app.post('/add-order-ajax', function (req, res) {
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
             // query2 = "SELECT * FROM ClothingItems_Orders;";
-            query2 = "SELECT order_id, order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;";
+            query2 = "SELECT order_id, DATE_FORMAT(order_date, '%m/%d/%Y') as order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;";
             db.pool.query(query2, function (error, rows, fields) {
 
                 // If there was an error on the second query, send a 400

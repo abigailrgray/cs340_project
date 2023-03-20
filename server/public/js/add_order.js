@@ -82,13 +82,16 @@ addRowToTable = (data) => {
 
     // Fill the cells with correct data
     orderIdCell.innerText = newRow.order_id;
+    // orderDateText = newRow.order_date;
+    // let DateComponents = orderDateText.slice(0, -1).split('T');
+    // orderDate = DateComponents[0];
     orderDateCell.innerText = newRow.order_date;
     totalCostCell.innerText = newRow.total_cost;
     shopperIdCell.innerText = newRow.shopper_id;
     sellerIdCell.innerText = newRow.seller_id;
 
     // Add the cells to the row
-    row.appendChild(orderIdCell) ;
+    row.appendChild(orderIdCell);
     row.appendChild(orderDateCell);
     row.appendChild(totalCostCell);
     row.appendChild(shopperIdCell);
