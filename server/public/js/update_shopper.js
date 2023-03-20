@@ -96,6 +96,19 @@ function updateRow(data, shopperID){
             lastNameCell.innerHTML = parsedData[0].last_name;
             emailCell.innerHTML = parsedData[0].email;  
             phoneNumberCell.innerHTML = parsedData[0].phone_number; 
+
+            updateDropDownMenu(shopperID, parsedData[0].first_name, parsedData[0].last_name);
        }
     }
 }
+
+function updateDropDownMenu(shopperID, firstName, lastName){
+    let selectMenu = document.getElementById("mySelect");
+    for (let i = 0; i < selectMenu.length; i++){
+      if (Number(selectMenu.options[i].value) === Number(shopperID)){
+        selectMenu.options[i].text = firstName + ' ' + lastName;
+        console.log(selectMenu.options[i].text)
+        break;
+      } 
+    }
+  }
