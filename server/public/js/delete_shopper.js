@@ -31,7 +31,18 @@ function deleteRow(shopperID){
     for (let i = 0, row; row = table.rows[i]; i++) {
        if (table.rows[i].getAttribute("data-value") == shopperID) {
             table.deleteRow(i);
+            deleteDropDownMenu(shopperID);
             break;
        }
     }
 }
+
+function deleteDropDownMenu(shopperID){
+    let selectMenu = document.getElementById("mySelect");
+    for (let i = 0; i < selectMenu.length; i++){
+      if (Number(selectMenu.options[i].value) === Number(shopperID)){
+        selectMenu[i].remove();
+        break;
+      } 
+    }
+  }

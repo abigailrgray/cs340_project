@@ -86,6 +86,7 @@ function updateRow(data, orderDetailsID){
             // itemIdCell.innerHTML = parsedData[0].item_id;
             itemQuantityCell.innerHTML = parsedData[0].item_quantity;
             soldPriceCell.innerHTML = parsedData[0].sold_price;
+
        }
     }
 }

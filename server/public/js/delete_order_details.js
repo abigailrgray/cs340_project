@@ -33,6 +33,7 @@ function deleteRow(orderDetailsID){
     for (let i = 0, row; row = table.rows[i]; i++) {
        if (table.rows[i].getAttribute("data-value") == orderDetailsID) {
             table.deleteRow(i);
+            //deleteDropDownMenu(orderDetailsID);
             break;
        }
     }
