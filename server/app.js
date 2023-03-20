@@ -195,7 +195,7 @@ app.post('/add-sellers-ajax', function (req, res) {
 // Clothing item routes
 app.get('/clothing_items', function(req, res)
 {
-    let clothing_item_query = "SELECT * FROM ClothingItems";
+    let clothing_item_query = "SELECT item_id, clothing_type, color, size, brand, item_condition, CONCAT('$' + current_price) as current_price, quantity, IF(is_available = 1, 'Yes', 'No') as is_available, seller_id FROM ClothingItems";
     let seller_query = "SELECT * FROM Sellers;";
 
     db.pool.query(clothing_item_query, function(error, rows, fields){
@@ -228,7 +228,7 @@ app.post('/add-clothing-item-ajax', function (req, res) {
         else {
             // If there was no error, perform a SELECT * on ClothingItems_Orders
             // query2 = "SELECT * FROM ClothingItems_Orders;";
-            query2 = "SELECT * FROM ClothingItems;"
+            query2 = "SELECT item_id, clothing_type, color, size, brand, item_condition, CONCAT('$' + current_price) as current_price, quantity, IF(is_available = 1, 'Yes', 'No') as is_available, seller_id FROM ClothingItems";
             db.pool.query(query2, function (error, rows, fields) {
 
                 // If there was an error on the second query, send a 400

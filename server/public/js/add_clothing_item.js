@@ -14,7 +14,8 @@ addClothingItemForm.addEventListener("submit", function (e) {
     let inputItemCondition = document.getElementById("input-item-condition-ajax");
     let inputCurrentPrice = document.getElementById("input-current-price-ajax");
     let inputQuantity = document.getElementById("input-quantity-ajax");
-    let inputIsAvailable = document.getElementById("input-is-available-ajax");
+    let inputIsAvailable = document.querySelector('input[name="input-is-available"]:checked');
+    // let inputIsAvailable = document.getElementById("input-is-available-ajax");
     let inputSellerId = document.getElementById("input-seller-id-ajax");
 
     // Get the values from the form fields
@@ -25,7 +26,7 @@ addClothingItemForm.addEventListener("submit", function (e) {
     let itemConditionValue = inputItemCondition.value;
     let currentPriceValue = inputCurrentPrice.value;
     let quanityValue = inputQuantity.value;
-    let isAvailableValue = inputIsAvailable.value;
+    let isAvailableValue = Number(inputIsAvailable.value);
     let sellerIdValue = inputSellerId.value;
 
     // Put our data we want to send in a javascript object
