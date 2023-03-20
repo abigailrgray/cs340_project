@@ -84,13 +84,6 @@ app.post('/add-shopper-ajax', function (req, res) {
 
 app.put('/put-shopper-ajax', function(req,res,next){
     let data = req.body;
-    // let username = parseInt(data.username);
-    // let password = parseInt(data.password);
-    // let first_name = parseInt(data.first_name);
-    // let last_name = parseInt(data.last_name);
-    // let email = parseInt(data.email);
-    // let phone_number = parseInt(data.phone_number);
-    // let shopper = parseInt(data.shopper);
   
     let query1 = `UPDATE Shoppers SET username = '${data.username}', password = '${data.password}', first_name = '${data.first_name}' , last_name = '${data.last_name}', email = '${data.email}', phone_number = '${data.phone_number}' WHERE shopper_id = '${data.full_name}';`
     let query2 = `SELECT * FROM Shoppers WHERE shopper_id = '${data.full_name}';`
