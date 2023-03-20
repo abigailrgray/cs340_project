@@ -20,6 +20,8 @@ addOrderForm.addEventListener("submit", function (e) {
     let shopperIdValue = inputShopperId.value;
     let sellerIdValue = inputSellerId.value;
 
+    console.log(totalCostValue);
+
     // Put our data we want to send in a javascript object
     let data = {
         order_date: orderDateValue,
