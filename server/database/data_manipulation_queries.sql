@@ -1,6 +1,6 @@
 -- Data manipulation queries
 
--- QUERIES FOR SHOPPERS PAGE FUNCTIONALITY --
+-- QUERIES FOR SHOPPERS TABLE --
 -- Get all shoppers for the Shoppers page
 SELECT * FROM Shoppers;
 
@@ -16,8 +16,11 @@ SELECT * FROM Shoppers WHERE shopper_id = :shopper_id_from_update_form;
 -- Delete a shopper
 DELETE FROM Shoppers where shopper_id = :shopper_id_from_browse_shoppers_page;
 
+-- Get all shoppers and their names to populate the Shoppers dropdown
+SELECT shopper_id, CONCAT(first_name, ' ', last_name) as name FROM Shoppers;
 
--- QUERIES FOR SELLERS PAGE FUNCTIONALITY --
+
+-- QUERIES FOR SELLERS TABLE --
 -- Get all sellers for the Sellers page
 SELECT * FROM Sellers;
 
@@ -25,66 +28,47 @@ SELECT * FROM Sellers;
 INSERT INTO Sellers (username, password, shop_name, email, phone_number)
 VALUES (:username_input, :password_input, :shop_name_input, :email_input, :phone_number_input);
 
+-- Get all sellers to populate the Sellers dropdowns
+SELECT * FROM Sellers;
 
--- QUERIES FOR CLOTHING ITEMS PAGE FUNCTIONALITY --
--- Get all clothing items for Clothing Items page
+
+-- QUERIES FOR CLOTHING ITEMS TABLE --
+-- Get all clothing items for the Clothing Items page
 SELECT item_id, clothing_type, color, size, brand, item_condition, CONCAT('$' + current_price) as current_price, quantity, IF(is_available = 1, 'Yes', 'No') as is_available, seller_id FROM ClothingItems;
 
--- Get all sellers to populate the Seller dropdown
-SELECT seller_id, username FROM Sellers;
-
 -- Add a new clothing item
-INSERT INTO ClothingItems(clothing_type, color, size, brand item_condition, current_price, quantity, is_available, seller_id
-) VALUES (:clothing_type_input, :color_input, :size_input, :brand_input, item_condition_input, :current_price_input, :quantity_input, :is_available_input, :seller_id_input_from_dropdown);
+INSERT INTO ClothingItems(clothing_type, color, size, brand item_condition, current_price, quantity, is_available, seller_id)
+VALUES (:clothing_type_input, :color_input, :size_input, :brand_input, item_condition_input, :current_price_input, :quantity_input, :is_available_input, :seller_id_input_from_dropdown);
+
+-- Get all clothing items to add the clothing from the Add Clothing Items form to the data table
+SELECT item_id, clothing_type, color, size, brand, item_condition, CONCAT('$' + current_price) as current_price, quantity, IF(is_available = 1, 'Yes', 'No') as is_available, seller_id FROM ClothingItems;
+
+-- Get all clothing items for the Clothing Items dropdown
+SELECT * FROM ClothingItems;
 
 
--- Get all orders to populate the dropdown for associating with a clothing item
-SELECT order_id, order_date, total_cost FROM Orders;
-
-SELECT order_id, CONCAT('date: ', order_date, ' total: $', total_cost) AS order_description FROM Orders;
-
-
--- Get all orders with their associated items
-SELECT Orders.order_id, ClothingItems.item_id, CONCAT(color, ' ', brand, ' ', clothing_type) as item_description, CONCAT('date: ', order_date, ' total: $', total_cost) AS order_description, item_quantity, CONCAT('$', sold_price) as sold_price
-FROM Orders
-INNER JOIN ClothingItems_Orders ON Orders.order_id = ClothingItems_Orders.order_id
-INNER JOIN ClothingItems ON ClothingItems_Orders.item_id = ClothingItems.item_id
-ORDER BY item_description, order_description;
-
+-- QUERIES FOR ORDERS TABLE --
+-- Get all orders for the Orders page
+SELECT order_id, DATE_FORMAT(order_date, '%m/%d/%Y') as order_date, CONCAT('$', total_cost) as total_cost, shopper_id, seller_id FROM Orders;
 
 -- Add a new order
-INSERT INTO Orders(
-    order_date,
-    total_cost,
-    shopper_id,
-    seller_id
-)
-VALUES
-(
-    :order_date_input,
-    :total_cost_input,
-    :shopper_id_input_from_dropdown,
-    :seller_id_input_from_dropdown
-);
+INSERT INTO Orders(order_date, total_cost, shopper_id, seller_id)
+VALUES (:order_date_input, :total_cost_input, :shopper_id_input_from_dropdown,:seller_id_input_from_dropdown);
+
+-- Get all orders for Orders dropdown
+SELECT * FROM Orders;
+
+
+-- QUERIES FOR ORDER DETAILS TABLE --
+-- Get all orders and their associated items for the Order Details page and Order Details dropdown
+SELECT order_details_id, order_id, item_id, item_quantity, CONCAT('$', sold_price) as sold_price, CONCAT('Order ', order_id, ' Item ', item_id) as order_details FROM ClothingItems_Orders;
 
 -- Associate an order with a clothing item (M:M relationship addition)
-INSERT INTO ClothingItems_Orders (
-    order_id,
-    item_id,
-    item_quantity,
-    sold_price
-)
-VALUES
-(
-    `${data.order_id}`,
-    `${data.item_id}`,
-    `${data.item_quantity}`,
-    `${data.sold_price}`
-);
+INSERT INTO ClothingItems_Orders (order_id, item_id, item_quantity, sold_price)
+VALUES (:orderid_from_dropdown, :itemid_from_dropdown, :itemquantity_input, :soldprice_input);
+
+-- Update an association between an order and a clothing item (M:M relationship update)
+UPDATE ClothingItems_Orders SET item_quantity = :item_quantity, sold_price = :soldprice_input WHERE order_details_id = :orderdetailsid_from_dropdown;
 
 -- Disassociate an order from a clothing item (M:M relationship deletion)
-DELETE FROM ClothingItems_Orders WHERE item_id = :item_id__from_clothing_item_and_order_list AND order_id = :order_id_from_clothing_item_and_order_list;
-
-
--- Get all shoppers to populate the Shopper dropdown
-SELECT shopper_id, username FROM Shoppers;
+DELETE FROM ClothingItems_Orders WHERE order_details_id = order_details_id_from_dropdown;
